@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>{{ task.title }}</h2>
+  <p class="muted">Due: {{ task.deadline|date:'M d' }} — Created: {{ task.created_at|date:'M d' }}</p>
+  <div class="task-full">
+    <p>{{ task.description|linebreaksbr }}</p>
+  </div>
+  <div class="actions">
+    <a class="btn" href="{% url 'tasks:edit' task.pk %}">Edit</a>
+    <form method="post" action="{% url 'tasks:toggle' task.pk %}" style="display:inline">{% csrf_token %}<button class="btn ghost">{% if task.completed %}Mark Pending{% else %}Mark Complete{% endif %}</button></form>
+    <a class="btn ghost" href="{% url 'tasks:index' %}">Back</a>
+  </div>
+</section>
+{% endblock %}

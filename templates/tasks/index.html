@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <h2>Tasks</h2>
+    <p class="subtitle">Pending and completed tasks.</p>
+  </div>
+
+  <div class="tabs">
+    <input id="tab-1" type="radio" name="tab" checked>
+    <label for="tab-1">Pending ({{ pending|length }})</label>
+    <input id="tab-2" type="radio" name="tab">
+    <label for="tab-2">Completed ({{ completed_tasks|length }})</label>
+
+    <div class="tab-content" id="content-1">
+      {% if pending %}
+        <ul class="task-list">
+          {% for task in pending %}
+          <li class="task-card">
+            <div class="task-main">
+              <h3 class="task-title">{{ task.title }}</h3>
+              <p class="task-desc">{{ task.description|linebreaksbr }}</p>
+            </div>
+            <div class="task-meta">
+              <p class="deadline">Due: {{ task.deadline|date:'M d' }}</p>
+              <form method="post" action="{% url 'tasks:toggle' task.pk %}">
+                {% csrf_token %}
+                <button class="btn small" title="Mark complete">✅</button>
+              </form>
+              <a class="btn small ghost" href="{% url 'tasks:detail' task.pk %}">View</a>
+              <a class="btn small" href="{% url 'tasks:edit' task.pk %}">Edit</a>
+              <form method="post" action="{% url 'tasks:delete' task.pk %}" style="display:inline">
+                {% csrf_token %}
+                <button class="btn small danger">Delete</button>
+              </form>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty">No pending tasks — enjoy your free time!</p>
+      {% endif %}
+    </div>
+
+    <div class="tab-content" id="content-2">
+      {% if completed_tasks %}
+        <ul class="task-list completed">
+          {% for task in completed_tasks %}
+          <li class="task-card completed-card">
+            <div class="task-main">
+              <h3 class="task-title">{{ task.title }}</h3>
+              <p class="task-desc">{{ task.description|linebreaksbr }}</p>
+            </div>
+            <div class="task-meta">
+              <p class="deadline">Completed — due was {{ task.deadline|date:'M d' }}</p>
+              <form method="post" action="{% url 'tasks:toggle' task.pk %}">
+                {% csrf_token %}
+                <button class="btn small ghost" title="Mark pending">Undo</button>
+              </form>
+              <a class="btn small ghost" href="{% url 'tasks:detail' task.pk %}">View</a>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty">No completed tasks yet — get something done!</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

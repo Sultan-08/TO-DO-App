@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel">
+  <h2>{{ title }}</h2>
+  <form method="post" class="task-form">
+    {% csrf_token %}
+    <div class="field">
+      {{ form.title.label_tag }}{{ form.title }}
+    </div>
+    <div class="field">
+      {{ form.description.label_tag }}{{ form.description }}
+    </div>
+    <div class="field split">
+      <div>{{ form.deadline.label_tag }}{{ form.deadline }}</div>
+      <div>{{ form.completed.label_tag }}{{ form.completed }}</div>
+    </div>
+    <div class="actions">
+      <button class="btn">Save</button>
+      <a class="btn ghost" href="{% url 'tasks:index' %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

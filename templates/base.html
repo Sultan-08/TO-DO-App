@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>To-Do List</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="logo">To‑Do ✨</h1>
+    <nav>
+      <a href="{% url 'tasks:index' %}" class="nav-link">Home</a>
+      <a href="{% url 'tasks:add' %}" class="nav-link">Add Task</a>
+    </nav>
+  </header>
+  <hr><br>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <p>Built with ❤️ by Team-VIII</p>
+  </footer>
+</body>
+</html>
