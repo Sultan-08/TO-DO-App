@@ -1,5 +1,4 @@
-
-# Django To-Do List App
+# Django To-Do List App 📃
 
 Features
 - Add daily tasks with deadline and mark tasks completed.
@@ -13,8 +12,8 @@ Run locally
 1. Create virtualenv and install requirements:
    ```
    python -m venv venv
-   source venv/bin/activate      # mac/linux
-   venv\Scripts\activate       # windows
+   source venv/bin/activate         # mac/linux
+   venv\Scripts\activate            # windows
    pip install -r requirements.txt
    ```
 2. Apply migrations and run server:
@@ -23,4 +22,3 @@ Run locally
    python manage.py runserver
    ```
 3. Open http://127.0.0.1:8000/
-
